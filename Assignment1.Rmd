@@ -1,0 +1,45 @@
+---
+title: "Assignment1"
+author: "Geetika Surapaneni"
+date: "1/10/2023"
+output: html_document
+---
+
+# January 10 Class Notes:
+##	GIT(local computer) AND GITHUB(free remote website for public storage of projects) 
+        - Version control: keep (and restoring) past versions of files  
+            - Programmers collaborating  
+        - Files good for version control:  
+            - plain text(.txt)  
+            - R scripts  
+            - Markdown (md/Rmd)  
+                - Text formatting language   
+            - Html  
+        - Files not good for version control:  
+            - PDFs  
+            - Videos/pics  
+            - Word Doc  
+        - Github REPO:    
+            - “Clone” (taking a copy of repository and downloading to local computer)  
+            - Changes to files:   
+                - Adding a new file  
+                - Alter existing files  
+                - Delete existing files  
+            - Commit(a commit):    
+                - noun version  
+                - Snapshot of current file system  
+            - Commit(to commit):  
+                - Verb version  
+                - Saving and recording changes  
+                - Make commits on local computer  
+    - Push: transfer changes from local repo to GitHub  
+    - Pull: brings GitHub repo to local computer  
+    - Steps:  
+        - Git status  
+        - Git add -A  
+        - Git commit -am “note”  
+        - Git push  
+##  R project:  
+            - Divides work into multiple contexts  
+            - Each project has its own working repository   
+            - Own workspace  
