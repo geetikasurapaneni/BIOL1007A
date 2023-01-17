@@ -1,0 +1,48 @@
+---
+title: "Assignment3"
+author: "Geetika Surapaneni"
+date: "1/12/2023"
+output: html_document
+---
+###   Assignment 3
+1. This is Question 1:
+
+```{r}
+x <- 1.1
+a <-2.2
+b <-3.3
+
+z <- c(x, a, b)
+
+question1_a <- x^a^b
+print(question1_a)
+
+question1_b <- (x^a)^b
+print(question1_b)
+
+question1_c <- 3*x^3 + 2*x^2 + 1
+print(question1_c)
+
+
+```
+
+2. This is Question 2:
+```{r}
+question2_a <- rep(x=1:8, each=1) 
+print(question2_a)
+
+question2_b <- rep(1:5, 1:5)
+print(question2_b)
+
+question2_c <-  rep(5:1, 5:1)
+print(question2_c)
+```
+
+3. This is Question 3:
+```{r}
+queue <- c("sheep", "fox", "owl", "ant")
+question3_a <- queue[5] <- "serpent"
+
+
+```
+
