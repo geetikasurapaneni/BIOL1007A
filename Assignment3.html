@@ -191,20 +191,36 @@ print(question1_c)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>This is Question 2:</li>
 </ol>
-<pre class="r"><code>question2_a &lt;- rep(x=1:8, each=1) 
+<pre class="r"><code>question2_a &lt;- c(seq(1:8), seq(from=7, to=1)) 
 print(question2_a)</code></pre>
-<pre><code>## [1] 1 2 3 4 5 6 7 8</code></pre>
+<pre><code>##  [1] 1 2 3 4 5 6 7 8 7 6 5 4 3 2 1</code></pre>
 <pre class="r"><code>question2_b &lt;- rep(1:5, 1:5)
 print(question2_b)</code></pre>
 <pre><code>##  [1] 1 2 2 3 3 3 4 4 4 4 5 5 5 5 5</code></pre>
-<pre class="r"><code>question2_c &lt;-  rep(5:1, 5:1)
+<pre class="r"><code>question2_c &lt;-  rep(seq(from=5, to=1), c(1,2,3,4,5))
 print(question2_c)</code></pre>
-<pre><code>##  [1] 5 5 5 5 5 4 4 4 4 3 3 3 2 2 1</code></pre>
+<pre><code>##  [1] 5 4 4 3 3 3 2 2 2 2 1 1 1 1 1</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>This is Question 3:</li>
 </ol>
 <pre class="r"><code>queue &lt;- c(&quot;sheep&quot;, &quot;fox&quot;, &quot;owl&quot;, &quot;ant&quot;)
-question3_a &lt;- queue[5] &lt;- &quot;serpent&quot;</code></pre>
+queue[5] &lt;- &quot;serpent&quot;
+print(queue)</code></pre>
+<pre><code>## [1] &quot;sheep&quot;   &quot;fox&quot;     &quot;owl&quot;     &quot;ant&quot;     &quot;serpent&quot;</code></pre>
+<pre class="r"><code>queue &lt;- queue[-1]
+print(queue)</code></pre>
+<pre><code>## [1] &quot;fox&quot;     &quot;owl&quot;     &quot;ant&quot;     &quot;serpent&quot;</code></pre>
+<pre class="r"><code>queue &lt;- c(&quot;donkey&quot;, queue)
+print(queue)</code></pre>
+<pre><code>## [1] &quot;donkey&quot;  &quot;fox&quot;     &quot;owl&quot;     &quot;ant&quot;     &quot;serpent&quot;</code></pre>
+<pre class="r"><code>queue &lt;- queue[-5]
+print(queue)</code></pre>
+<pre><code>## [1] &quot;donkey&quot; &quot;fox&quot;    &quot;owl&quot;    &quot;ant&quot;</code></pre>
+<pre class="r"><code>queue &lt;- append(queue, &quot;aphid&quot;, after=2)
+print(queue)</code></pre>
+<pre><code>## [1] &quot;donkey&quot; &quot;fox&quot;    &quot;aphid&quot;  &quot;owl&quot;    &quot;ant&quot;</code></pre>
+<pre class="r"><code>which(queue == &quot;aphid&quot;)</code></pre>
+<pre><code>## [1] 3</code></pre>
 </div>
 
 
