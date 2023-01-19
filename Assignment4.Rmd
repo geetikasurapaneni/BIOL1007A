@@ -1,0 +1,30 @@
+---
+title: "Assignment4"
+author: "Geetika Surapaneni"
+date: "1/17/2023"
+output: html_document
+---
+
+1. This is Question 1: 
+
+```{r}
+n_dims  <- round(runif(1, min = 3, max = 10))
+print(n_dims)
+
+z <- seq(1:n_dims^2)
+print(z)
+
+sample(z)
+
+m <-  matrix(data=z, nrow = n_dims, byrow = TRUE)
+print(m)
+  
+transposed_m <- t(m)
+print(transposed_m)
+
+sum(transposed_m[1,])
+sum(transposed_m[n_dims,])
+mean(transposed_m[1,])
+mean(transposed_m[n_dims,])
+```
+
