@@ -1,0 +1,6 @@
+---
+title: "Week1Assignment"
+author: "Geetika Surapaneni"
+date: "1/13/2023"
+output: html_document
+---

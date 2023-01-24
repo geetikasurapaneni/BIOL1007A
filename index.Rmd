@@ -24,8 +24,9 @@ output:
 
 [Weekly Assignment 1](Assignment1.html)
 
+[Weekly Assignment 2](Assignment1.html)
 
 
-## Notes
+
 
 
