@@ -83,6 +83,21 @@ Question 2:
 library(tidyverse)
 library(ggthemes)
 
+dryadData <- read.table("veysey powell and babbitt_data_buffers and amphibians2.csv", header=TRUE, sep=",", stringsAsFactors = TRUE) 
+
+
+class(dryadData$treatment)
+glimpse(dryadData)
+head(dryadData)
+table(dryadData$species)
+summary(dryadData$mean.hydro)
+
+dryadData$species<-factor(dryadData$species, labels=c("Spotted Salamander", "Wood Frog")) #creating 'labels' to use for the plot
+
+dryadData$treatment <- factor(dryadData$treatment, #creating treatment as the factor
+            levels=c("Reference",
+                     "100m", "30m")) #creating three levels
+
 p<- ggplot(data=dryadData, #adds the data frame needed to create plot
        aes(x=interaction(wetland, treatment),  #x variable is the 
            y=count.total.adults, fill=factor(year))) + geom_bar(position="dodge",  stat="identity", color="black") + #y variable is the total number of adults. #the fill color is by year and the color is black. 
