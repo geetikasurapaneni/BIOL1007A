@@ -1,0 +1,80 @@
+---
+title: "Week3Assignment"
+author: "Geetika Surapaneni"
+date: "2/6/2023"
+output: html_document
+---
+
+I chose a paper by Bowden et al. (2015). The study used a 17-year dataset on wing lengths of two butterfly species in Greenland to show that both species follow the “temperature-size” rule, which posits that higher temperatures generally select for smaller adult body size.
+
+I got the data from dryad: http://dx.doi.org/10.5061/dryad.43gt3  
+
+The figure I am trying to recreate:
+<img src="https://royalsocietypublishing.org/cms/asset/bf0821ac-4ecf-40ae-a89c-baa0b6b90f22/rsbl20150574f01.jpg" width="200" height="400" />
+
+
+```{r}
+
+boloria <- read.csv("boloria.csv")
+colias <-read.csv("colias.csv")
+
+snow.years = aggregate(boloria$snow, list(boloria$year), mean)  
+head(snow.years)
+
+year.dat = aggregate(boloria[c("snow", "mayjun", "mayaug.1")], 
+    list(year = boloria$year), mean)
+head(year.dat)
+
+fit.snow = lm(snow ~ year, data = year.dat)
+class(fit.snow)
+str(fit.snow)
+summary(fit.snow)
+
+plot(year.dat$year, year.dat$snow, pch = 19, xlab = "year", ylab = "snowmelt (DOY)", 
+    las = 1, ylim = c(130, 170), yaxp = c(130, 170, 4), xlim = c(1995, 
+        2015), xaxp = c(1995, 2015, 4))
+abline(fit.snow)
+
+xv = seq(1996, 2013, 1)  #The range of x-values that I want to fit the line to
+predict.snow = predict(fit.snow, list(year = xv))  #predicted values that correspond to those x-values.
+predict.snow
+
+plot(year.dat$year, year.dat$snow, pch = 19, xlab = "year", ylab = "snowmelt (DOY)", 
+    las = 1, ylim = c(130, 170), yaxp = c(130, 170, 4), xlim = c(1995, 
+        2015), xaxp = c(1995, 2015, 4))
+lines(xv, predict.snow)
+
+xv2 = c(1996, 2013)  #just the minimum and maximum values on the x-axis
+predict.snow2 = predict(fit.snow, list(year = xv))
+plot(year.dat$year, year.dat$snow, pch = 19, xlab = "year", ylab = "snowmelt (DOY)", 
+    las = 1, ylim = c(130, 170), yaxp = c(130, 170, 4), xlim = c(1995, 
+        2015), xaxp = c(1995, 2015, 4))
+lines(xv, predict.snow)
+
+fit.snow = lm(snow ~ year, data = year.dat)  #regression fit for snowmelt date
+fit.mayjun = lm(mayjun ~ year, data = year.dat)  #regression fit for May-June temp
+fit.mayaug.1 = lm(mayaug.1 ~ year, data = year.dat)  #regression fit for May-Aug temp from last year.
+
+# set up fit line x- and y-values
+xv = seq(1996, 2013, 1)
+predict.snow = predict(fit.snow, list(year = xv))
+predict.mayjun = predict(fit.mayjun, list(year = xv))
+predict.mayaug.1 = predict(fit.mayaug.1, list(year = xv))
+
+# plot multi-panel figure
+par(mfrow = c(3, 1), mar = c(4, 4, 1, 2))
+
+plot(year.dat$year, year.dat$snow, pch = 19, xlab = "year", ylab = "snowmelt (DOY)", 
+    las = 1)
+lines(xv, predict.snow)
+
+plot(year.dat$year, year.dat$mayjun, pch = 19, xlab = "year", 
+    ylab = "Average Temperature", las = 1)
+lines(xv, predict.mayjun)
+
+plot(year.dat$year, year.dat$mayaug.1, pch = 19, xlab = "year", 
+    ylab = "Average Temperature Last Year", las = 1)
+lines(xv, predict.mayaug.1)
+```
+
+
