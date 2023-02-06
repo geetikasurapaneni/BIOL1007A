@@ -8,6 +8,10 @@ output:
     highlight: github
 ---
 
+###################### Welcome to my github page! My name is Geetika Surapaneni and I am a sophmore Molecular Biology and Biochemistry Major with a minor in Psychology. I am taking Reproducible Biology in R to learn new skills that are important for the future career I would like! This webpage has both my daily and weekly assignments!
+
+<img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg" width="200" height="200" />
+
 ## Assignments
 
 [Assignment 1](Assignment1.html)
@@ -20,11 +24,19 @@ output:
 
 [Assignment 5](Assignment5.html)
 
+[Assignment 6](Assignment6.html)
+
+[Assignment 7](Assignment7.html)
+
+[Assignment 8](Assignment8.html)
+
+[Assignment 9](Assignment9.html)
+
 ## Weekly Assignments 
 
-[Weekly Assignment 1](Assignment1.html)
+[Weekly Assignment 1](Week1Assignment.html)
 
-[Weekly Assignment 2](Assignment1.html)
+[Weekly Assignment 2](Week2Assignment.html)
 
 
 

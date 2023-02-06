@@ -4,3 +4,45 @@ author: "Geetika Surapaneni"
 date: "1/19/2023"
 output: html_document
 ---
+
+Question 1:
+```{r}
+
+library(tidyverse)
+
+set.seed(1000)
+
+datafunction <- function(m1 = 10, sd1 = 1.5, m2 = 45, sd2 = 2){
+  dFrame <- data.frame(
+    Type = rep(c("Control", "Treatment"), each = 25),
+    Value = c(rnorm(25, m1, sd1), rnorm(25, m2, sd2))
+  )
+  return(dFrame)
+}
+
+```
+
+Question 2:
+```{r}
+data<-datafunction()
+head(data)
+```
+
+Question 3:
+```{r}
+anova <- aov(data[[2]] ~ data[[1]], data = data)
+summary(anova)
+```
+
+
+Question 4:
+```{r}
+valtest <- function(d = data){
+  table = summary(aov(d[[2]] ~ d[[1]], data = d))
+  pvalue <- table[[1]][["Pr(>F)"]][[1]]
+  return(pvalue)
+}
+
+valtest()
+```
+

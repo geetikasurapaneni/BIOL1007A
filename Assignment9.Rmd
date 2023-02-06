@@ -1,0 +1,65 @@
+---
+title: "Assignment9"
+author: "Geetika Surapaneni"
+output: html_document
+---
+
+Question 1:
+```{r}
+set.seed(123)
+myVec <- sample(-100:100, 10000, replace=TRUE)
+zero_counter <- function(x = NULL) {
+  counter <- 0
+  for (i in 1:length(x)) {
+    if (x[i] == 0) {
+      counter <- counter + 1
+    }
+  }
+  return(counter)
+}
+zero_counter(myVec)
+```
+
+Question 2:
+```{r}
+integers <- sample(0:10, 2, replace = TRUE)
+  
+  matrix_maker <- function(x = NULL) {
+  m <- matrix(nrow=integers[1],ncol=integers[2],byrow=TRUE)
+  for(i in 1:integers[1]){
+  for(j in 1:integers[2]){
+    m[i,j] <- i * j
+  }
+  }
+  return(m)
+}
+matrix_maker(integers)
+```
+
+Question 3:
+```{r}
+set.seed(123)
+df_function <- function() {
+  df <- data.frame(Type = c(rep("Control", 25),
+                      rep("Treatment", 25)), 
+            Value = c(rnorm(25, 10, 1.5),
+                      rnorm(25, 45, 2)))
+  return(df)
+}
+
+p_value <- function(df) {
+  anova <- aov(data = df, df[,2] ~ df[,1])
+  pVal <- summary(anova)[[1]][["Pr(>F)"]][1]
+  return(pVal)
+}
+
+p_value_results <- data.frame(replicate = integer(length = 100), pvalue = numeric(length = 100))
+
+for (i in 1:100) {
+  df <- df_function()
+  pVal <- p_value(df)
+  p_value_results[i,] <- c(i, pVal)
+}
+p_value_results
+```
+

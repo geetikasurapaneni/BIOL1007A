@@ -4,27 +4,45 @@ author: "Geetika Surapaneni"
 date: "1/24/2023"
 output: html_document
 ---
+ Question 1:
+```{r}
+library(dplyr)
+library(ggplot2)
+library(ggthemes)
+library(patchwork)
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+species <- starwars %>% 
+  count(species, sort = T) %>% 
+  filter(n > 1) %>%
+  print()
+
+species2 <- starwars %>%
+  filter(species %in% species) %>%
+  select(-(films:starships)) %>%
+  print()
 ```
+ 
+ Question 2:
+```{r}
+clean <- species2[complete.cases(species2$height),]
+ 
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+summarytable <- clean %>% 
+  group_by(species) %>%
+  summarize(mean_height = mean(height), median_height = median(height), sd_height = sd(height)) %>%
+  print()
 ```
+ 
+ Question 3: 
+```{r}
+boxplot <- ggplot(data = clean, aes(x = species, y = height, fill = species)) + 
+  geom_boxplot() +
+  labs(x="Species",
+       y="Height (cm)") +
+  theme_minimal() +
+  geom_text(aes(x = NA, y = max(height), label = "p = 1.2E-0.5"), size = 3.2) +
+  theme_classic()
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+print(boxplot)
 ```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+ 

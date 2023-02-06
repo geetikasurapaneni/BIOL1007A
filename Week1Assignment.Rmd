@@ -4,3 +4,64 @@ author: "Geetika Surapaneni"
 date: "1/13/2023"
 output: html_document
 ---
+### A Quick Guide on How to Set up a GitHub Web Page in RStudio
+
+1. Install R and RStudio.  
+
+2. Download R from https://cran.r-project.org/ 
+
+3. Download RStudio from https://posit.co/download/rstudio-desktop/
+
+4. Select the version for your operating system and follow instructions given by the        installer.
+
+5. Create GitHub Account. Go to https://github.com/ 
+
+6. Download and Install Git. 
+   + Windows users go to https://git-scm.com/download/win
+   + + Dowload the correct version based on your system requirements
+   + Mac users install homebrew by going to https://brew.sh/
+   + +Y ou can download homebrew by opening Terminal and copying and pasting this code `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+   + + Then follow the prompts
+   + + Once homebrew is installed, run `"brew install git"` in Terminal 
+   + + Restart RStudio, once git is installed
+   
+7. Create new repository in GitHub 
+  + Go to https://github.com/ and navigate to your repositories. 
+  + Click the green button to create a new repository. 
+  + Name the repository and make sure to add a README file as well as choose an MIT License.
+  
+8. Connect your GitHub account to RStudio
+  + Go to https://github.com/settings/tokens
+  + Go to “Personal access tokens” and select “Tokens (classic)”
+  + Click “Generate new token” and select “Generate new token (classic)” 
+  + Enter your account password and then name your token, appropriately set the expiration date, and click “repo” from the list of options.
+  + Click the green “Generate token” button.
+  + Copy and paste the token somewhere else because you will not see this token again!
+  
+9. Choose the repository you want to link to a webpage. 
+  + Then click the green code button and copy the URL.
+  + Open RStudio
+  + Go to the top left corner of the window and click on icon of a blue cube with an R inside to create new project. 
+  + Choose a “version control” project and select “Git” as the type of repository.
+  + Paste the copied URL into the “Repository URL” text box and give it the same name as GitHub.
+  + Enter your GitHub account username and use the personal access token you created earlier as your password.
+  
+10. Commit changes to webpage
+  + To commit  changes to your GitHub web page you must first navigate to the terminal window in RStudio 
+  + Type and run git status to show the status of the changes you made.
+  + Type and run git add -A which adds these new files.
+  + Type and run git commit -am "<message>" which commits files to a local directory (you should include a message in the quotations about what changes you are making).
+  + Type and run git push which commits these changes to GitHub.
+  + Navigate to the GitHub repositories page and select the repository you have been working on. 
+  + In the settings tab, scroll down and select “Pages”. 
+  + Go to the “Branch” subsection and select “main” from the drop-down menu.
+  + Refresh the page, and at some point over the next couple of minutes and you will get a message that reads “Your site is live at https://[GitHub_username].github.io/[repository_name]/”
+  + The .html version of your index file will appear once you load your web page.
+
+
+## TroubleShooting
+
++ Make sure you have ample bandwidth and are not trying to install these larger items with multiple people at the same time, in the same space. Go to an empty room and then install. 
+
++ It takes time for your GitHub webpage to go live. Therefore, it is ok to wait a while. Make sure to refresh webpage as well. 
+   
