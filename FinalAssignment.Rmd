@@ -13,26 +13,24 @@ output: html_document
 For my final project, I decided to look at the ggmaps package. I chose this package because I think it takes a lot of visuals to the next level and can make visuals that much more informative. In order to properly use the package, I downloaded a dataset looking at sports twitter. I wanted to map what the most popular sport was by state, in terms of twitter popularity. I also wanted to map each sport to display the popularity of that sport across the nation. The code and the steps I have taken to do so, as well as the final design are below. 
 
 #### Overview and Steps
-
-############### 1. The approtiate libraries must first be installed. The packages below must first be installed by typing install.packages("name of package") in the Console.
-
-```{r}
-library(tidyverse)  
-library(lubridate)    
+############### 1. The appropriate libraries must first be installed. The packages below must first be installed by typing install.packages("name of package") in the Console.
+```{r libraries, echo = TRUE, warning = FALSE, message = FALSE}
+library(tidyverse)
+library(lubridate)
 library(maps)
+library(usdata)
+
 ```
 
 
-############### 2. Load in Dataset. 
+############### 2. Load in Dataset.The data set comes from Twitter. It contains tweets discussing one of the five big sports in the U.S.: football, baseball, basketball, hockey and soccer.
 ```{r}
- sport_tweets <-  read_rds("sport_tweets.rds")
+sport_tweets <-  read_rds("sport_tweets.rds")
 ```
 
 
 ############### 3. Examine DATA. 
-To start examining the dataset, create a new variable to identify one of the five big sports. 
-
-
+To start examining the dataset, create a new variable to identify one of the five big sports. Keys words related to each sport can be used to group tweets by sport. 
 
 ```{r}
 football <- regex("nfl|superbowl|half-time show|running back|quarterback|touchdown|fieldgoal|end zone|kickoff|linebacker|linemen|tackle|widereciever|yard line|patriots|Tom Brady", ignore_case = TRUE)
@@ -43,10 +41,99 @@ hockey <- regex("NHL|puck|ice|hockey stick|skate|hockey|skates|helmet|rink|cold|
 
 basketball <- regex("NBA|three point|point guard|Lebron James|basketball|free throw| hoop|Lakers|slam dunk|jump shot|triple-double|double-double|backboard|rebound|court", ignore_case = TRUE)
 
-soccer <- regex("barcelona|madrid|messi|ronaldo|AFC|CAF|CONCACAF|CSF|corner kick|FIFA|goal kick|MLS||OFC|nutmeg|slide tackle|through ball|WUSA|header", ignore_case = TRUE)`
+soccer <- regex("barcelona|madrid|messi|ronaldo|AFC|CAF|CONCACAF|CSF|corner kick|FIFA|goal kick|MLS||OFC|nutmeg|slide tackle|through ball|WUSA|header", ignore_case = TRUE)
 
-
+sports <- sport_tweets %>%
+  mutate(sport = case_when(
+      str_detect(text, football) ~ "football",
+      str_detect(text, hockey) ~ "hockey",
+      str_detect(text, basketball) ~ "basketball",
+      str_detect(text, baseball) ~ "baseball",
+      str_detect(text, soccer) ~ "soccer")) 
 ```
 
 
+Now that each sport is their own category. Take summary statistics. Since we are exploring ggmaps and plan to plot our data on visuals of an USA map, it is important to extract state-level location information about the sports.
+
+```{r}
+#extracting states + their correlating max mention count from each sport
+
+usa_states <- state_stats %>%
+  pull(state) %>%
+  str_c(collapse = "|")
+
+usa_states_abbr <- state_stats %>%
+  pull(abbr) %>%
+  str_c(collapse = "|")
+
+states_sports <- sports %>%
+  select(sport, user_location) %>%
+  mutate(state_full = str_extract(user_location, regex(usa_states, ignore_case = TRUE)), 
+  state_abbr = str_extract(user_location, regex(usa_states_abbr)),
+  state_abbr = abbr2state((state_abbr)), 
+  states = coalesce(state_abbr, state_full), 
+  states = tolower(states)) %>%
+    group_by(states, sport) %>%
+    summarize(mentions = n()) %>%
+    filter(sport != "none") %>%
+    ungroup() %>%
+    group_by(states) %>%
+    slice(which.max(mentions))
+```
+
+
+############### 4. Plotting Data.  
+
+First, map the most popular sport for each state. Use the state level data from above and USA map data.
+
+```{r}
+
+usa <- map_data("state") %>%
+  rename(states = region)
+
+df_map <- states_sports %>%
+  inner_join(usa, state_sports, by = "states")
+```
+Then create visual using ggplot
+```{r}
+#graph of most popular games for each sport
+ggplot() +
+  geom_polygon(data = df_map, aes(x = long, y = lat, group = group, fill = sport), color = "black") +
+  coord_map() +
+  labs(title = "Most Popular Game to Tweet About In Each Sport")
+```
+
+
+Second, create one map for each state to display the popularity of that sport across the nation. 
+
+Same code as above but without slice max function so including all mentions. 
+
+```{r}
+state_sports2 <- sports %>%
+  select(sport, user_location) %>%
+  mutate(state_full = str_extract(user_location, regex(usa_states, ignore_case = TRUE)), 
+  state_abbr = str_extract(user_location, regex(usa_states_abbr)),
+  state_abbr = abbr2state((state_abbr)), 
+    states = coalesce(state_abbr, state_full), 
+    states = tolower(states)) %>%
+  group_by(states, sport) %>%
+  summarize(mentions = n()) %>%
+  filter(sport != "none") 
+
+
+df_map2 <- state_sports2 %>%
+  inner_join(usa, state_sports2, by = "states")
+
+```
+
+Then plot visual using ggplot
+```{r}
+#map of popularity of each sport across the nation
+ggplot() +
+  geom_polygon(data = df_map2, aes(x = long, y = lat, group = group, fill = mentions),  color = "black") +
+  coord_map() +
+  facet_wrap(vars(sport)) +
+  labs(title = "Twitter Popularity of Each Sport Across the Nation")
+
+```
 

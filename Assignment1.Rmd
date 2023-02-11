@@ -42,4 +42,4 @@ output: html_document
 ##  R project:  
             - Divides work into multiple contexts  
             - Each project has its own working repository   
-            - Own workspace  
+            - Own work space  

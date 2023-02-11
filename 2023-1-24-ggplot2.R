@@ -39,5 +39,5 @@ x_trt <- c("Control", "Low", "High")
 y_res <- c(12, 2.5, 22.9)
 qplot(x=x_trt)
 
-
+library(viridis)
 
