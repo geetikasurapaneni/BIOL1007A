@@ -1,0 +1,52 @@
+---
+title: "FinalCode"
+author: "Geetika Surapaneni"
+date: "2/1/2023"
+output: html_document
+---
+
+## Final Project
+#### Geetika Surapaneni
+
+#### Introduction 
+
+For my final project, I decided to look at the ggmaps package. I chose this package because I think it takes a lot of visuals to the next level and can make visuals that much more informative. In order to properly use the package, I downloaded a dataset looking at sports twitter. I wanted to map what the most popular sport was by state, in terms of twitter popularity. I also wanted to map each sport to display the popularity of that sport across the nation. The code and the steps I have taken to do so, as well as the final design are below. 
+
+#### Overview and Steps
+
+############### 1. The approtiate libraries must first be installed. The packages below must first be installed by typing install.packages("name of package") in the Console.
+
+```{r}
+library(tidyverse)  
+library(lubridate)    
+library(maps)
+```
+
+
+############### 2. Load in Dataset. 
+```{r}
+ sport_tweets <-  read_rds("sport_tweets.rds")
+```
+
+
+############### 3. Examine DATA. 
+To start examining the dataset, create a new variable to identify one of the five big sports. 
+
+
+
+```{r}
+football <- regex("nfl|superbowl|half-time show|running back|quarterback|touchdown|fieldgoal|end zone|kickoff|linebacker|linemen|tackle|widereciever|yard line|patriots|Tom Brady", ignore_case = TRUE)
+
+baseball <- regex("outfielder|mlb|umpire|catcher|baseball|homerun|pitcher|baseball bat|strikeout|strike|home plate|batter|plate", ignore_case = TRUE)
+
+hockey <- regex("NHL|puck|ice|hockey stick|skate|hockey|skates|helmet|rink|cold|s lap shot", ignore_case = TRUE)
+
+basketball <- regex("NBA|three point|point guard|Lebron James|basketball|free throw| hoop|Lakers|slam dunk|jump shot|triple-double|double-double|backboard|rebound|court", ignore_case = TRUE)
+
+soccer <- regex("barcelona|madrid|messi|ronaldo|AFC|CAF|CONCACAF|CSF|corner kick|FIFA|goal kick|MLS||OFC|nutmeg|slide tackle|through ball|WUSA|header", ignore_case = TRUE)`
+
+
+```
+
+
+
