@@ -22,10 +22,10 @@ library(usdata)
 
 ```
 
-
 ############### 2. Load in Dataset.The data set comes from Twitter. It contains tweets discussing one of the five big sports in the U.S.: football, baseball, basketball, hockey and soccer.
 ```{r}
-sport_tweets <-  read_rds("sport_tweets.rds")
+sport_tweets <- read.csv("sporttweets.csv")
+
 ```
 
 
@@ -58,6 +58,7 @@ Now that each sport is their own category. Take summary statistics. Since we are
 ```{r}
 #extracting states + their correlating max mention count from each sport
 
+
 usa_states <- state_stats %>%
   pull(state) %>%
   str_c(collapse = "|")
@@ -79,6 +80,8 @@ states_sports <- sports %>%
     ungroup() %>%
     group_by(states) %>%
     slice(which.max(mentions))
+
+
 ```
 
 
